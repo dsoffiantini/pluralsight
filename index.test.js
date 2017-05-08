@@ -15,20 +15,30 @@ describe('Array Splitter', () => {
         //tests
         let testOne = ["Hello there: My Name is Daniel"];
         let testTwo = ["A: B","C: D","E: F","G: H"];
-        let testThree = "This string is not: an array";
 
         //apply functions
         let testOneOutput = arraySplitter(testOne);
         let testTwoOutput = arraySplitter(testTwo);
-        let testThreeOutput = arraySplitter(testThree);
 
         //answers
         let testOneAnswer = [["Hello there", "My Name is Daniel"]];
         let testTwoAnswer = [["A", "B"], ["C", "D"], ["E", "F"], ["G", "H"]];
-        let testThreeAnswer = false;
 
         expect(testOneOutput).toEqual(testOneAnswer).toBeAn('array').toBeTruthy().toNotContain(":");
         expect(testTwoOutput).toEqual(testTwoAnswer).toBeAn('array').toBeTruthy().toNotContain(":");
+    });
+
+    it ('Returns false when not given an array as an input', () => {
+
+        //tests
+        let testThree = "This string is not: an array";
+
+        //apply functions
+        let testThreeOutput = arraySplitter(testThree);
+
+        //answers
+        let testThreeAnswer = false;
+
         expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('array').toBeA('boolean').toBeFalsy();
     });
 });
