@@ -1,6 +1,7 @@
 import expect from 'expect';
 //my functions
 import arraySplitter from './arraySplitter';
+import arrayToObject from './convertTwoDimensionalArrayToObject';
 
 describe('first test', function () {
     it('should pass', function () {
@@ -59,17 +60,75 @@ describe('Array Splitter', () => {
         expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('array').toBeA('boolean').toBeFalsy();
     });
 
-    it ('Should remove packages that are formatted without a package mapped to either a dependency or no dependencies', () => {
+    it('Should remove packages that are formatted without a package mapped to either a dependency or no dependencies', () => {
 
         //tests
         let testOne = ["One ", "Two: Three"];
 
         //apply functions
         let testOneOutput = arraySplitter(testOne);
-        
+
         //answers
-        let testOneAnswer = [["Two", "Three"]];
+        let testOneAnswer = [
+            ["Two", "Three"]
+        ];
 
         expect(testOneOutput).toEqual(testOneAnswer).toBeA('array').toBeTruthy().toNotContain(":");
+    });
+});
+
+//Step 2: Convert Array of Arrays into an actual Javascript object with keys and values
+describe('Object Creator', () => {
+    it('Should return an object when handed an array of arrays', () => {
+
+        //tests
+        let testOne = [
+            ["One", "Two"],
+            ["Three", "Four"]
+        ];
+        let testTwo = [
+            ["One", ""],
+            ["Two", ""]
+        ];
+
+        //apply functions
+        let testOneOutput = arrayToObject(testOne);
+        let testTwoOutput = arrayToObject(testTwo);
+
+        //answers
+        let testOneAnswer = {
+            One: "Two",
+            Three: "Four"
+        };
+        let testTwoAnswer = {
+            One: "",
+            Two: ""
+        };
+
+        expect(testOneOutput).toEqual(testOneAnswer).toBeA('object').toBeTruthy().toNotBeAn('array');
+        expect(testTwoOutput).toEqual(testTwoAnswer).toBeA('object').toBeTruthy().toNotBeAn('array');
+    });
+
+    it('Should validate data is being passed properly(array of arrays)', () => {
+        //tests
+        let testOne = ["This is a one dimensional array", "That should not pass"];
+        let testTwo = "This is a string that also should not pass";
+        let testThree = {
+            thisIsAnObject: "Should Fail"
+        };
+        
+        //apply functions
+        let testOneOutput = arrayToObject(testOne);
+        let testTwoOutput = arrayToObject(testTwo);
+        let testThreeOutput = arrayToObject(testThree);
+
+        //answers
+        let testOneAnswer = false;
+        let testTwoAnswer = false;
+        let testThreeAnswer = false;
+
+        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
+        expect(testTwoOutput).toEqual(testTwoAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
+        expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
     });
 });
