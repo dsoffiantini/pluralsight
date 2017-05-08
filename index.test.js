@@ -2,6 +2,7 @@ import expect from 'expect';
 //my functions
 import arraySplitter from './arraySplitter';
 import arrayToObject from './convertTwoDimensionalArrayToObject';
+import packageInstaller from './packageInstaller';
 
 describe('first test', function () {
     it('should pass', function () {
@@ -116,7 +117,7 @@ describe('Object Creator', () => {
         let testThree = {
             thisIsAnObject: "Should Fail"
         };
-        
+
         //apply functions
         let testOneOutput = arrayToObject(testOne);
         let testTwoOutput = arrayToObject(testTwo);
@@ -130,5 +131,102 @@ describe('Object Creator', () => {
         expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
         expect(testTwoOutput).toEqual(testTwoAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
         expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
+    });
+});
+
+//Step 3: Check through object and resolve the order in which packages should be installed!
+describe('Package Installer', () => {
+    it('Should install packages in the correct order', () => {
+
+        //tests
+        let testOne = {
+            CamelCaser: "KittenService",
+            Cyberportal: "Ice",
+            Fraudstream: "Leetmeme",
+            Ice: "",
+            KittenService: "",
+            Leetmeme: "Cyberportal"
+        };
+        let testTwo = {
+            A: "B",
+            B: "",
+            C: "B"
+        };
+        let testThree = {
+            A: "C",
+            B: "A",
+            C: ""
+        };
+
+        //apply functions
+        let testOneOutput = packageInstaller(testOne);
+        let testTwoOutput = packageInstaller(testTwo);
+        let testThreeOutput = packageInstaller(testThree);
+
+        //answers
+        let testOneAnswer = "KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream";
+        let testTwoAnswer = "B A C";
+        let testThreeAnswer = "C A B";
+
+        expect(testOneOutput).toEqual(testOneAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+        expect(testTwoOutput).toEqual(testTwoAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+        expect(testThreeOutput).toEqual(testThreeAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+    });
+
+    it('Should return false if packages contain a cycle', () => {
+
+       //tests
+        let testOne = {
+            KittenService: "",
+            Leetmeme: "Cyberportal",
+            Cyberportal: "Ice",
+            CamelCaser: "KittenService",
+            Fraudstream: "",
+            Ice: "Leetmeme"
+        };
+        let testTwo = {
+            A: "B",
+            B: "A",
+        };
+        let testThree = {
+            A: "A",
+            B: "B",
+            C: "C"
+        };
+
+        //apply functions
+        let testOneOutput = packageInstaller(testOne);
+        let testTwoOutput = packageInstaller(testTwo);
+        let testThreeOutput = packageInstaller(testThree);
+
+        //answers
+        let testOneAnswer = false;
+        let testTwoAnswer = false;
+        let testThreeAnswer = false; 
+
+        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+        expect(testTwoOutput).toEqual(testTwoAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+        expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+    });
+
+    it('Should validate the input parameter is an object', () => {
+        //tests
+        let testOne = ["This is a one dimensional array", "That should not pass"];
+        let testTwo = "This is a string that also should not pass";
+        let testThree = false;
+
+        //apply functions
+        let testOneOutput = packageInstaller(testOne);
+        let testTwoOutput = packageInstaller(testTwo);
+        let testThreeOutput = packageInstaller(testThree);
+
+        //answers
+        let testOneAnswer = false;
+        let testTwoAnswer = false;
+        let testThreeAnswer = false;
+
+        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
+        expect(testTwoOutput).toEqual(testTwoAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+        expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
     });
 });
