@@ -4,6 +4,7 @@ let arraySplitter = (servicesArray) => {
     let formattedServices = [];
     servicesArray.forEach((service) => {
         let newPair = service.split(": ")
+        if (newPair.length != 2) return false;
         formattedServices.push(newPair)
     })
     return formattedServices;

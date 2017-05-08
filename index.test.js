@@ -68,8 +68,8 @@ describe('Array Splitter', () => {
         let testOneOutput = arraySplitter(testOne);
         
         //answers
-        let testOneAnswer = false;
+        let testOneAnswer = [["Two", "Three"]];
 
-        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('array').toBeA('boolean').toBeFalsy();
+        expect(testOneOutput).toEqual(testOneAnswer).toBeA('array').toBeTruthy().toNotContain(":");
     });
 });
