@@ -210,6 +210,7 @@ describe('Package Installer', () => {
     });
 
     it('Should validate the input parameter is an object', () => {
+        
         //tests
         let testOne = ["This is a one dimensional array", "That should not pass"];
         let testTwo = "This is a string that also should not pass";
@@ -225,7 +226,7 @@ describe('Package Installer', () => {
         let testTwoAnswer = false;
         let testThreeAnswer = false;
 
-        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('object').toBeA('boolean').toBeFalsy();
+        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
         expect(testTwoOutput).toEqual(testTwoAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
         expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
     });

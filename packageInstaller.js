@@ -1,5 +1,9 @@
 let packageInstaller = (packageObject) => {
-    return "You need to implement this function!";
+    if (!(Object.prototype.toString.call(packageObject) === "[object Object]") || !packageObject)
+    {   
+        return false;
+    }
+    return true;
 }
 
 export default packageInstaller;
