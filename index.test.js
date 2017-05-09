@@ -140,12 +140,12 @@ describe('Package Installer', () => {
 
         //tests
         let testOne = {
-            CamelCaser: "KittenService",
-            Cyberportal: "Ice",
-            Fraudstream: "Leetmeme",
-            Ice: "",
             KittenService: "",
-            Leetmeme: "Cyberportal"
+            Leetmeme: "Cyberportal",
+            Cyberportal: "Ice",
+            CamelCaser: "KittenService",
+            Fraudstream: "Leetmeme",
+            Ice: ""
         };
         let testTwo = {
             A: "B",
@@ -165,8 +165,8 @@ describe('Package Installer', () => {
 
         //answers
         let testOneAnswer = "KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream";
-        let testTwoAnswer = "B A C";
-        let testThreeAnswer = "C A B";
+        let testTwoAnswer = "B, A, C";
+        let testThreeAnswer = "C, A, B";
 
         expect(testOneOutput).toEqual(testOneAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
         expect(testTwoOutput).toEqual(testTwoAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
