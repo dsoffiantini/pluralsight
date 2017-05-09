@@ -30,8 +30,12 @@ let packageInstaller = (packageObject) => {
             }
 
         }
-        return order.toString().replace(/,/g, ", ");
 
+        if (!packages.length) {
+            return order.toString().replace(/,/g, ", ");
+        } else {
+            return false;
+        }
     }
 }
 
