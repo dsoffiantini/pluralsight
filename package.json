@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register \"**/*.test.js\""
+    "start": "npm-run-all --parallel test:watch",
+    "test": "mocha --require babel-core/register \"**/*.test.js\"",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +14,7 @@
     "babel-core": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "expect": "^1.20.2",
-    "mocha": "^3.3.0"
+    "mocha": "^3.3.0",
+    "npm-run-all": "4.0.2"
   }
 }
