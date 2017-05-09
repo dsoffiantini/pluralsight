@@ -8,8 +8,8 @@ let splitPackagesAndDependencies = (packageArray) => {
      packageArray.forEach((service) => {
         let newPair = service.split(": ")
         if (newPair.length != 2) return false;
-        packages.push(newPair[0]);
-        dependencies.push(newPair[1])
+        packages.push(newPair[0].replace(/\s/g, ''));
+        dependencies.push(newPair[1].replace(/\s/g, ''));
     })
     
     arrayContainer.push(packages);
