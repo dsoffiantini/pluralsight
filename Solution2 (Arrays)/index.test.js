@@ -119,3 +119,27 @@ describe('Install Package From Arrays of Packages and Dependencies', () => {
     });
 
 });
+
+describe('Full Package Installer', () => {
+    it('Should apply all other functions and install packages from an array with strings', () => {
+
+        //tests
+        let testOne = ["A: B", "B: "];
+        let testTwo = ["A: ", "B: ", "C: ", "D: B"];
+        let testThree = ["KittenService: ", "Leetmeme: Cyberportal", "Cyberportal: Ice", "CamelCaser: KittenService", "Fraudstream: Leetmeme", "Ice: "];
+
+        //apply functions
+        let testOneOutput = packageInstaller(testOne);
+        let testTwoOutput = packageInstaller(testTwo);
+        let testThreeOutput = packageInstaller(testThree)
+
+        //answers
+        let testOneAnswer = "B, A";
+        let testTwoAnswer = "A, B, C, D";
+        let testThreeAnswer = "KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream";
+
+        expect(testOneOutput).toEqual(testOneAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+        expect(testTwoOutput).toEqual(testTwoAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+        expect(testThreeOutput).toEqual(testThreeAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+    });
+})
