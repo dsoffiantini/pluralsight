@@ -52,7 +52,6 @@ describe('Split Input Array Into Packages and Dependencies Arrays', () => {
     it('Should remove all spaces from packages and dependencies', () => {
 
         //tests
-        //tests
         let testOne = ["One     : ", "   Two  : One   ", "Three   :    One"];
         let testTwo = ["KittenService   :    ", "Leetmeme   : Cyberportal   ", "Cyber  portal: Ice  ", "CamelCaser   : KittenService  ", "Fraudstream  : Leetm  eme", "Ic  e: "]
         let testThree = ["KittenS  ervice: CamelCaser  ", "CamelCaser           : "];
@@ -71,4 +70,51 @@ describe('Split Input Array Into Packages and Dependencies Arrays', () => {
         expect(testTwoOutput).toEqual(testTwoAnswer).toBeAn('array').toBeTruthy().toNotContain(":").toNotContain(" ");
         expect(testThreeOutput).toEqual(testThreeAnswer).toBeAn('array').toBeTruthy().toNotContain(":").toNotContain(" ");
     });
+});
+
+describe('Install Package From Arrays of Packages and Dependencies', () => {
+    it('Should install packages in the correct order', () => {
+
+        //test
+        let testOne = [["One", "Two", "Three"], ["", "One", "One"]];
+        let testTwo = [["KittenService", "Leetmeme", "Cyberportal", "CamelCaser", "Fraudstream", "Ice"], ["", "Cyberportal", "Ice", "KittenService", "Leetmeme", ""]];
+        let testThree = [["KittenService", "CamelCaser"], ["CamelCaser", ""]];
+
+        //apply functions
+        let testOneOutput = installPackagesFromArrays(testOne);
+        let testTwoOutput = installPackagesFromArrays(testTwo);
+        let testThreeOutput = installPackagesFromArrays(testThree);
+
+        //answers
+        let testOneAnswer = "One, Two, Three";
+        let testTwoAnswer = "KittenService, Ice, Cyberportal, Leetmeme, CamelCaser, Fraudstream";
+        let testThreeAnswer = "CamelCaser, KittenService";
+
+        expect(testOneOutput).toEqual(testOneAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+        expect(testTwoOutput).toEqual(testTwoAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+        expect(testThreeOutput).toEqual(testThreeAnswer).toBeA('string').toBeTruthy().toNotBeAn('object');
+    });
+
+    it('Should return false if packages contain a cycle', () => {
+
+        //tests
+        let testOne = [["KittenService", "Leetmeme", "Cyberportal", "CamelCaser", "Fraudstream", "Ice"], ["", "Cyberportal", "Ice", "KittenService", "", "Leetmeme"]];
+        let testTwo = [["A", "B"],["B", "A"]];
+        let testThree = [["A", "B", "C"],["A", "B", "C"]];
+
+        //apply functions
+        let testOneOutput = installPackagesFromArrays(testOne);
+        let testTwoOutput = installPackagesFromArrays(testTwo);
+        let testThreeOutput = installPackagesFromArrays(testThree);
+
+        //answers
+        let testOneAnswer = false;
+        let testTwoAnswer = false;
+        let testThreeAnswer = false;
+
+        expect(testOneOutput).toEqual(testOneAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+        expect(testTwoOutput).toEqual(testTwoAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+        expect(testThreeOutput).toEqual(testThreeAnswer).toNotBeA('string').toBeA('boolean').toBeFalsy();
+    });
+
 });
