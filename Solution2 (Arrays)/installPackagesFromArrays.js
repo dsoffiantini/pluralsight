@@ -13,12 +13,10 @@ let installPackagesFromArrays = (packageAndDependencyArrays) => {
         }
     }
 
-    let emptyStringIndex = dependencies.indexOf("");
-
-    while(emptyStringIndex != -1)
+    while(dependencies.indexOf("") != -1)
     {
-        packages.splice(emptyStringIndex, 1);
-        dependencies.splice(emptyStringIndex, 1);
+        packages.splice(dependencies.indexOf(""), 1);
+        dependencies.splice(dependencies.indexOf(""), 1);
     }
 
     for (let i = 0; i <= timesToLoop; i++) {
