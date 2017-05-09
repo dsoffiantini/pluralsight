@@ -2,6 +2,7 @@ import expect from 'expect';
 //my functions
 import splitPackagesAndDependencies from './splitPackagesAndDependencies';
 import installPackagesFromArrays from './installPackagesFromArrays';
+import packageInstaller from './packageInstaller';
 
 describe('Split Input Array Into Packages and Dependencies Arrays', () => {
     it('Should return an array that contains seperated arrays of packages and depedencies', () => {

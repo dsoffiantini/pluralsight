@@ -8,11 +8,17 @@ let installPackagesFromArrays = (packageAndDependencyArrays) => {
     for (let i = 0; i < dependencies.length; i++) {
         if (dependencies[i] === "") {
             order.push(packages[i]);
-            packages.splice(i, 1);
-            dependencies.splice(i, 1);
         } else {
             timesToLoop++;
         }
+    }
+
+    let emptyStringIndex = dependencies.indexOf("");
+
+    while(emptyStringIndex != -1)
+    {
+        packages.splice(emptyStringIndex, 1);
+        dependencies.splice(emptyStringIndex, 1);
     }
 
     for (let i = 0; i <= timesToLoop; i++) {
